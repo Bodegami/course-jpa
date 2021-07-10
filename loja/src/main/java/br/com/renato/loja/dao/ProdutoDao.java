@@ -1,5 +1,6 @@
 package br.com.renato.loja.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -46,11 +47,19 @@ public class ProdutoDao {
 	}
 	
 	//JPQL utilizando o Position Parameters
-		public List<Produto> buscarPorNomeDaCategoria(String categoria) {
-			String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = ?1";
-			return em.createQuery(jpql, Produto.class)
-					.setParameter(1, categoria)
-					.getResultList();
-		}
+	public List<Produto> buscarPorNomeDaCategoria(String categoria) {
+		String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = ?1";
+		return em.createQuery(jpql, Produto.class)
+				.setParameter(1, categoria)
+				.getResultList();
+	}
+		
 
+	//JPQL retornando apenas um campo do produto da tabela
+	public BigDecimal buscarPrecoDoProdutoComNome(String nome) {
+		String jpql = "SELECT p.preco FROM Produto p WHERE p.nome = :pNome";
+		return em.createQuery(jpql, BigDecimal.class)
+				.setParameter("pNome", nome)
+				.getSingleResult();
+	}	
 }
