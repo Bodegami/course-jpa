@@ -1,12 +1,10 @@
 package br.com.renato.loja.testes;
 
 import java.math.BigDecimal;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
+import br.com.renato.loja.dao.ProdutoDao;
 import br.com.renato.loja.modelo.Produto;
+import br.com.renato.loja.util.JPAUtil;
 
 public class CadastroDeProduto {
 
@@ -16,14 +14,13 @@ public class CadastroDeProduto {
 		celular.setDescricao("Muito legal");
 		celular.setPreco(new BigDecimal("800"));
 
-		// Design pattern Factory
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = JPAUtil.getEntityManager();
+		ProdutoDao dao = new ProdutoDao(em);
 
 		// Abre uma transacao com DB, faz a persistencia do objeto, comita a transacao e
 		// fecha a transacao
 		em.getTransaction().begin();
-		em.persist(celular);
+		dao.cadastrar(celular);
 		em.getTransaction().commit();
 		em.close();
 
