@@ -15,6 +15,11 @@ public class Categoria {
 	private Long id;
 	private String nome;
 	
+	
+	// JPA only
+	public Categoria() {
+	}
+
 	public Categoria(String nome) {
 		this.nome = nome;
 	}
@@ -22,5 +27,12 @@ public class Categoria {
 	public String getNome() {
 		return nome;
 	}
+
+	@Override
+	public String toString() {
+		return "Categoria [nome= " + nome + "]";
+	}
+	
+	
 	
 }

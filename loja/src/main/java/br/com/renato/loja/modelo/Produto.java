@@ -24,6 +24,10 @@ public class Produto {
 
 	@ManyToOne
 	private Categoria categoria;
+	
+	// JPA only
+		public Produto() {
+	}
 
 	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
@@ -79,5 +83,13 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	@Override
+	public String toString() {
+		return "Produto [id= " + id + ", nome= " + nome + ", descricao= " + descricao + ", preco= " + preco
+				+ ", dataCadastro= " + dataCadastro + ", categoria= " + categoria + "]";
+	}
+	
+	
 
 }

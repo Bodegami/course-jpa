@@ -1,7 +1,10 @@
 package br.com.renato.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+
 import br.com.renato.loja.dao.CategoriaDao;
 import br.com.renato.loja.dao.ProdutoDao;
 import br.com.renato.loja.modelo.Categoria;
@@ -11,6 +14,19 @@ import br.com.renato.loja.util.JPAUtil;
 public class CadastroDeProduto {
 
 	public static void main(String[] args) {
+		cadastrarProduto();
+		
+		EntityManager em = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(em);
+		
+		Produto p = produtoDao.buscarPorId(1l);
+		System.out.println(p.toString());
+		
+		List<Produto> todos = produtoDao.listarTodos();
+		todos.forEach(produto -> System.out.println(produto.toString()));
+	}
+
+	private static void cadastrarProduto() {
 		Categoria celulares = new Categoria("celulares");
 		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), celulares);
 
@@ -27,7 +43,6 @@ public class CadastroDeProduto {
 		
 		em.getTransaction().commit();
 		em.close();
-
 	}
 
 }
