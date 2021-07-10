@@ -3,16 +3,14 @@ package br.com.renato.loja.testes;
 import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import br.com.renato.loja.dao.ProdutoDao;
+import br.com.renato.loja.modelo.Categoria;
 import br.com.renato.loja.modelo.Produto;
 import br.com.renato.loja.util.JPAUtil;
 
 public class CadastroDeProduto {
 
 	public static void main(String[] args) {
-		Produto celular = new Produto();
-		celular.setNome("Xiaomi Redmi");
-		celular.setDescricao("Muito legal");
-		celular.setPreco(new BigDecimal("800"));
+		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), Categoria.CELULARES);
 
 		EntityManager em = JPAUtil.getEntityManager();
 		ProdutoDao dao = new ProdutoDao(em);
